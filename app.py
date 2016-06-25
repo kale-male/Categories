@@ -16,6 +16,5 @@ def hello_world():
 @app.route("/banner")
 def banner():
     cats = request.args.get("categories").split(',')
-    # image = "http://c7.staticflickr.com/8/7424/9262102694_a79aa1b44d.jpg"
     image = conf.get_categories(cats)
     return render_template("banner.html", image=image)

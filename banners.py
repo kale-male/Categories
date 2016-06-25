@@ -1,15 +1,11 @@
-from collections import deque
+from collections import deque, defaultdict
 
 
 class Categories(object):
     def __init__(self, config_file):
-        try:
-            fdata = open(config_file)
-        except:
-            print "Wrong filename!"
-            return
+        fdata = open(config_file)
 
-        categories = dict()
+        categories = defaultdict(deque)
         data = dict()
 
         with fdata:
@@ -17,10 +13,7 @@ class Categories(object):
                 lline = line.rstrip('\n').strip().split(';')
                 data[lline[0]] = int(lline[1])
                 for c in lline[2:]:
-                    if c in categories:
-                        categories[c].append(lline[0])
-                    else:
-                        categories[c] = deque([lline[0]])
+                    categories[c].append(lline[0])
 
         self.count = data
         self.categories = categories
